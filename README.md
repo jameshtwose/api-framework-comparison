@@ -65,3 +65,7 @@ A comparison of an assortment of popular API frameworks in various languages. Th
 ### R
 - plumber + dbplyr (ORM)
 - plumber + RPostgreSQL (SQL)
+
+### Julia
+- Genie + GenieORM (ORM)
+- Genie + LibPQ (SQL)
