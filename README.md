@@ -1,6 +1,13 @@
 # api-framework-comparison
 A comparison of an assortment of popular API frameworks in various languages. The project will be an API that interacts with a postgres database and performs CRUD operations. Everything will be run in the final comparison using docker-compose.
 
+## Data
+- data is complaints data taken from kaggle
+- https://www.kaggle.com/datasets/anoopjohny/consumer-complaint-database
+
+## Commands
+- `docker compose up -d` - Starts the postgres database and the api
+
 ## Frameworks
 ### Python
 - fastapi + sqlalchemy (ORM)
