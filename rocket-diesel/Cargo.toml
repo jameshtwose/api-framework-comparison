@@ -1,0 +1,12 @@
+[package]
+name = "rocket-diesel"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rocket = "0.5.0-rc.1"
+# swagger-ui = { version = "0.1.5", features = ["rocket"] }
+rocket_okapi = { version = "0.8.0", features = ["swagger", "rapidoc"] }
+serde = "1.0.130"
