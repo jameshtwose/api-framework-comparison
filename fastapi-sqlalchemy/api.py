@@ -4,7 +4,10 @@ from models import ComplaintsTable
 from sqlalchemy import create_engine, select
 from typing import Optional
 
-engine = create_engine("postgresql://postgres:changeme@localhost:5432")
+# localhost if running from command line
+# engine = create_engine("postgresql://postgres:changeme@localhost:5432")
+# postgres if running from docker-compose
+engine = create_engine("postgresql://postgres:changeme@postgres:5432")
 
 app = FastAPI(
     title="FastAPI-SQLAlchemy",
