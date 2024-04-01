@@ -6,7 +6,10 @@ library(RPostgres)
 # get postgres connection
 con <- DBI::dbConnect(RPostgres::Postgres(), 
                       dbname = "postgres",
-                      host = "localhost",
+                      # localhost if running from command line
+                      # host = "localhost",
+                      # docker container name (postgres) if running from docker
+                      host = "postgres",
                       port = 5432,
                         user = "postgres",
                         password = "changeme")

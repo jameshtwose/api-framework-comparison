@@ -73,5 +73,5 @@ print(sql_df.shape)
 
 # %%
 # drop the table
-ComplaintsTable.__table__.drop(engine)
+# ComplaintsTable.__table__.drop(engine)
 # %%

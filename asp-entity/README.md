@@ -9,3 +9,8 @@
 - `dotnet add package Swashbuckle.AspNetCore`
 - `dotnet dev-certs https --trust` 
 - `dotnet run --launch-profile https`
+- `http://localhost:5259/swagger/index.html` (Swagger UI)
+
+### Docker
+- `docker build -t asp-entity .`
+- `docker run -d -p 8085:8080 --name asp-entity asp-entity`

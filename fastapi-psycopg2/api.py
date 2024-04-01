@@ -3,10 +3,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
 import psycopg2
 
+# localhost if running from command line
+# postgres if running from docker-compose
 connection = psycopg2.connect(
     user="postgres",
     password="changeme",
-    host="localhost",
+    # host="localhost",
+    host="postgres",  # "postgres" is the name of the service in the docker-compose file
     port="5432",
     database="postgres",
 )
