@@ -48,13 +48,13 @@ services:
     networks:
       - postgres
 
-  # node-express-sequelize:
-  #   container_name: node-express-sequelize
-  #   build: ./node-express-sequelize
-  #   ports:
-  #     - "8082:8082"
-  #   networks:
-  #     - postgres
+  node-express-sequelize:
+    container_name: node-express-sequelize
+    build: ./node-express-sequelize
+    ports:
+      - "8082:8082"
+    networks:
+      - postgres
 
   plumber-dbplyr:
     container_name: plumber-dbplyr

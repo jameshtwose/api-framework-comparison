@@ -10,7 +10,8 @@ const sequelize = new Sequelize(
     'postgres', // username
     'changeme', // password
     {
-        host: 'localhost',
+        host: 'postgres', // docker-compose
+        // host: 'localhost', // local
         dialect: 'postgres',
         define: {
             freezeTableName: true,

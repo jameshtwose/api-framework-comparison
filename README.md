@@ -76,10 +76,6 @@ A comparison of an assortment of popular API frameworks in various languages. Th
 - kemal + granite (ORM)
 - kemal + pg (SQL)
 
-### Lua
-- lapis + lapis (ORM)
-- lapis + pgmoon (SQL)
-
 ### R
 - plumber + dbplyr (ORM)
 - plumber + RPostgreSQL (SQL)
