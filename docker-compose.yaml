@@ -56,21 +56,21 @@ services:
     networks:
       - postgres
 
-  plumber-dbplyr:
-    container_name: plumber-dbplyr
-    build: ./plumber-dbplyr
-    ports:
-      - "8083:8083"
-    networks:
-      - postgres
+  # plumber-dbplyr:
+  #   container_name: plumber-dbplyr
+  #   build: ./plumber-dbplyr
+  #   ports:
+  #     - "8083:8083"
+  #   networks:
+  #     - postgres
 
-  plumber-rpostgresql:
-    container_name: plumber-rpostgresql
-    build: ./plumber-rpostgresql
-    ports:
-      - "8084:8084"
-    networks:
-      - postgres
+  # plumber-rpostgresql:
+  #   container_name: plumber-rpostgresql
+  #   build: ./plumber-rpostgresql
+  #   ports:
+  #     - "8084:8084"
+  #   networks:
+  #     - postgres
 
   asp-entity:
     container_name: asp-entity

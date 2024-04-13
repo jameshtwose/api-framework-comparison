@@ -1,6 +1,6 @@
 [tool.locust]
 locustfile = "locustfile.py"
-headless = true
+headless = false
 # master = true
 # expect-workers = 5
 host = "http://localhost:8080"
