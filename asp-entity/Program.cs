@@ -1,9 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 // add the services for swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // add the postgresql connection
+builder.AddNpgsqlDataSource("postgresdb");
 // builder.AddNpgsqlDbContext<ApiDbContext>("postgresdb");
 
 var app = builder.Build();

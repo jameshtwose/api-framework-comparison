@@ -1,15 +1,3 @@
-// #[macro_use] extern crate rocket;
-
-// #[get("/")]
-// fn index() -> &'static str {
-//     "Hello, world!"
-// }
-
-// #[launch]
-// fn rocket() -> _ {
-//     rocket::build().mount("/", routes![index])
-// }
-
 use rocket::form::FromForm;
 use rocket::{get, post, serde::json::Json};
 use rocket_okapi::okapi::schemars;
