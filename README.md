@@ -21,11 +21,11 @@ A comparison of an assortment of popular API frameworks in various languages. Th
 
 ## Frameworks
 ### Python
-- fastapi + sqlalchemy (ORM)
-- fastapi + psycopg2 (SQL)
+- fastapi + sqlalchemy (ORM) [x]
+- fastapi + psycopg2 (SQL) [x]
 
 ### Node
-- express + sequelize (ORM)
+- express + sequelize (ORM) [x]
 - express + pg (SQL)
 
 ### Go
