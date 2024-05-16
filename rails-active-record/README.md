@@ -1,0 +1,16 @@
+## Rails + active record (ORM)
+- Install rvm https://rvm.io/rvm/install
+- Install ruby `rvm install 3.2.2 --with-openssl-dir=$(brew --prefix openssl@1.1)`
+- Install rails `gem install rails`
+- Create a new project `rails new rails-active-record`
+- Change to the project directory `cd rails-active-record`
+- `bin/rails server` to start the server
+- `rails g rswag:install` to install rswag
+- `rake rswag:specs:swaggerize` to generate the swagger documentation
+- `bin/rails generate controller Articles index --skip-routes` to generate a controller
+- `bin/rails generate model Article title:string body:text` to generate a model
+- `bin/rails db:migrate` to run the migration
+- `bin/rails db:seed` to seed the database
+- `bin/rails console` to open the rails console
+- `article = Article.new(title: "Hello Rails", body: "I am on Rails!")` to create a new article
+- `article.save` to save the article

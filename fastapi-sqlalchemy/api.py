@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from models import ComplaintsTable
+from models import ComplaintsTable, PriceTable
 from sqlalchemy import create_engine, select
 from typing import Optional
 
@@ -60,11 +60,133 @@ async def get_complaints(limit: Optional[int] = None):
         A list of dicts with all complaints
 
     """
-    with engine.connect() as conn:
+    with engine.begin() as conn:
         if limit:
             query = select(ComplaintsTable).limit(limit)
         else:
             query = select(ComplaintsTable)
         result = conn.execute(query)
         # create a list of dicts from the result zipping the keys and values
+        return [dict(zip(result.keys(), row)) for row in result.fetchall()]
+
+
+@app.get("/complaints/{complaint_id}", tags=["Complaints"])
+async def get_complaint(complaint_id: int):
+    """Get a single complaint
+
+    Parameters
+    ----------
+    complaint_id : int
+        The complaint id
+
+    Returns
+    -------
+    dict
+        A dict with the complaint
+
+    """
+    with engine.begin() as conn:
+        query = select(ComplaintsTable).where(
+            ComplaintsTable.complaint_id == complaint_id
+        )
+        result = conn.execute(query)
+        return dict(zip(result.keys(), result.fetchone()))
+
+
+@app.get("/prices", tags=["Prices"])
+async def get_prices(limit: Optional[int] = None):
+    """Get all prices
+
+    Parameters
+    ----------
+    limit : int, optional
+        Limit the number of prices returned, by default None
+
+    Returns
+    -------
+    list
+        A list of dicts with all prices
+
+    """
+    with engine.begin() as conn:
+        if limit:
+            query = select(PriceTable).limit(limit)
+        else:
+            query = select(PriceTable)
+        result = conn.execute(query)
+        return [dict(zip(result.keys(), row)) for row in result.fetchall()]
+
+
+@app.get("/prices/{complaint_id}", tags=["Prices"])
+async def get_price(complaint_id: int):
+    """Get a single price
+
+    Parameters
+    ----------
+    complaint_id : int
+        The complaint id
+
+    Returns
+    -------
+    dict
+        A dict with the price
+
+    """
+    with engine.begin() as conn:
+        query = select(PriceTable).where(PriceTable.complaint_id == complaint_id)
+        result = conn.execute(query)
+        return dict(zip(result.keys(), result.fetchone()))
+
+
+@app.get("/complaints/{complaint_id}/price", tags=["Complaints"])
+async def get_complaint_price(complaint_id: int):
+    """Get a single complaint with price
+
+    Parameters
+    ----------
+    complaint_id : int
+        The complaint id
+
+    Returns
+    -------
+    dict
+        A dict with the complaint and price
+
+    """
+    with engine.begin() as conn:
+        query = (
+            select(ComplaintsTable)
+            .where(ComplaintsTable.complaint_id == complaint_id)
+            .join(
+                PriceTable,
+                onclause=ComplaintsTable.complaint_id == PriceTable.complaint_id,
+            )
+        )
+        result = conn.execute(query)
+        return dict(zip(result.keys(), result.fetchone()))
+
+
+@app.get("/complaints/price/all", tags=["Complaints"])
+def get_all_complaints_prices():
+    """Get all complaints with prices
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    list
+        A list of dicts with all complaints and prices
+
+    """
+    with engine.begin() as conn:
+        query = (
+            select(ComplaintsTable)
+            .join(
+                PriceTable,
+                onclause=ComplaintsTable.complaint_id == PriceTable.complaint_id,
+            )
+        )
+        result = conn.execute(query)
         return [dict(zip(result.keys(), row)) for row in result.fetchall()]

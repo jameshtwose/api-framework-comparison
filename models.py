@@ -39,3 +39,8 @@ class ComplaintsTable(Base):
         return (
             f"<ComplaintsTable(product={self.product}, issue={self.issue})>"
         )
+
+class PriceTable(Base):
+    __tablename__ = "price_table"
+    complaint_id = Column(Integer, primary_key=True)
+    price = Column(Float)

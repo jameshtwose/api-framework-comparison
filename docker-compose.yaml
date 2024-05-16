@@ -11,7 +11,7 @@ services:
     volumes:
        - postgres:/data/postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"
     networks:
       - postgres
     restart: unless-stopped
@@ -40,45 +40,45 @@ services:
     networks:
       - postgres
 
-  fastapi-psycopg2:
-    container_name: fastapi-psycopg2
-    build: ./fastapi-psycopg2
-    ports:
-      - "8081:8081"
-    networks:
-      - postgres
+  # fastapi-psycopg2:
+  #   container_name: fastapi-psycopg2
+  #   build: ./fastapi-psycopg2
+  #   ports:
+  #     - "8081:8081"
+  #   networks:
+  #     - postgres
 
-  node-express-sequelize:
-    container_name: node-express-sequelize
-    build: ./node-express-sequelize
-    ports:
-      - "8082:8082"
-    networks:
-      - postgres
+  # node-express-sequelize:
+  #   container_name: node-express-sequelize
+  #   build: ./node-express-sequelize
+  #   ports:
+  #     - "8082:8082"
+  #   networks:
+  #     - postgres
 
-  plumber-dbplyr:
-    container_name: plumber-dbplyr
-    build: ./plumber-dbplyr
-    ports:
-      - "8083:8083"
-    networks:
-      - postgres
+  # plumber-dbplyr:
+  #   container_name: plumber-dbplyr
+  #   build: ./plumber-dbplyr
+  #   ports:
+  #     - "8083:8083"
+  #   networks:
+  #     - postgres
 
-  plumber-rpostgresql:
-    container_name: plumber-rpostgresql
-    build: ./plumber-rpostgresql
-    ports:
-      - "8084:8084"
-    networks:
-      - postgres
+  # plumber-rpostgresql:
+  #   container_name: plumber-rpostgresql
+  #   build: ./plumber-rpostgresql
+  #   ports:
+  #     - "8084:8084"
+  #   networks:
+  #     - postgres
 
-  asp-entity:
-    container_name: asp-entity
-    build: ./asp-entity
-    ports:
-      - "8085:8080"
-    networks:
-      - postgres
+  # asp-entity:
+  #   container_name: asp-entity
+  #   build: ./asp-entity
+  #   ports:
+  #     - "8085:8080"
+  #   networks:
+  #     - postgres
 
 networks:
   postgres:
