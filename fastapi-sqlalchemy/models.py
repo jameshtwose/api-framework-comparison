@@ -30,7 +30,8 @@ class ComplaintsTable(Base):
             f"<ComplaintsTable(product={self.product}, issue={self.issue})>"
         )
 
+
 class PriceTable(Base):
     __tablename__ = "price_table"
-    complaint_id = Column(Integer, primary_key=True)
+    complaint_id = Column(Integer, autoincrement=True, primary_key=True)
     price = Column(Float)

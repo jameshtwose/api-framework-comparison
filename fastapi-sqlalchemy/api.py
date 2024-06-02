@@ -1,11 +1,11 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
 from models import ComplaintsTable, PriceTable
-from sqlalchemy import create_engine, select
+from sqlalchemy import create_engine, select, insert, delete
 from typing import Optional
 
 # localhost if running from command line
-# engine = create_engine("postgresql://postgres:changeme@localhost:5432")
+# engine = create_engine("postgresql://postgres:changeme@localhost:5433")
 # postgres if running from docker-compose
 engine = create_engine("postgresql://postgres:changeme@postgres:5432")
 
@@ -133,7 +133,9 @@ async def get_price(complaint_id: int):
 
     """
     with engine.begin() as conn:
-        query = select(PriceTable).where(PriceTable.complaint_id == complaint_id)
+        query = select(PriceTable).where(
+            PriceTable.complaint_id == complaint_id
+        )
         result = conn.execute(query)
         return dict(zip(result.keys(), result.fetchone()))
 
@@ -159,7 +161,8 @@ async def get_complaint_price(complaint_id: int):
             .where(ComplaintsTable.complaint_id == complaint_id)
             .join(
                 PriceTable,
-                onclause=ComplaintsTable.complaint_id == PriceTable.complaint_id,
+                onclause=ComplaintsTable.complaint_id
+                == PriceTable.complaint_id,
             )
         )
         result = conn.execute(query)
@@ -181,12 +184,105 @@ def get_all_complaints_prices():
 
     """
     with engine.begin() as conn:
-        query = (
-            select(ComplaintsTable)
-            .join(
-                PriceTable,
-                onclause=ComplaintsTable.complaint_id == PriceTable.complaint_id,
-            )
+        query = select(ComplaintsTable).join(
+            PriceTable,
+            onclause=ComplaintsTable.complaint_id == PriceTable.complaint_id,
         )
         result = conn.execute(query)
         return [dict(zip(result.keys(), row)) for row in result.fetchall()]
+
+
+@app.post("/prices", tags=["Prices"])
+async def create_price(complaint_id: int, price: int):
+    """Create a new price
+
+    Parameters
+    ----------
+    complaint_id : int
+        The complaint id
+    price : PriceTable
+        The price to create
+
+    Returns
+    -------
+    dict
+        A dict with the created price
+
+    """
+    with engine.begin() as conn:
+        query = (
+            insert(PriceTable)
+            .values({"complaint_id": complaint_id, "price": price})
+            .returning(PriceTable.complaint_id)
+        )
+        result = conn.execute(query)
+        return {"complaint_id": result.fetchone()[0], "price": price}
+
+
+@app.get("/complaints/date_received/{date_received}", tags=["Complaints"])
+async def get_complaints_by_date(date_received: str):
+    """Get all complaints by date received
+
+    Parameters
+    ----------
+    date_received : str
+        The date received
+
+    Returns
+    -------
+    list
+        A list of dicts with all complaints by date received
+
+    """
+    with engine.begin() as conn:
+        query = select(ComplaintsTable).where(
+            ComplaintsTable.date_received == date_received
+        )
+        result = conn.execute(query)
+        return [dict(zip(result.keys(), row)) for row in result.fetchall()]
+
+
+@app.delete("/complaints/{complaint_id}", tags=["Complaints"])
+async def delete_complaint(complaint_id: int):
+    """Delete a single complaint
+
+    Parameters
+    ----------
+    complaint_id : int
+        The complaint id
+
+    Returns
+    -------
+    dict
+        A dict with the complaint
+
+    """
+    with engine.begin() as conn:
+        query = ComplaintsTable.delete().where(
+            ComplaintsTable.complaint_id == complaint_id
+        )
+        _ = conn.execute(query)
+        return {"complaint_id": complaint_id, "status": "deleted"}
+
+
+@app.delete("/prices/{complaint_id}", tags=["Prices"])
+async def delete_price(complaint_id: int):
+    """Delete a single price
+
+    Parameters
+    ----------
+    complaint_id : int
+        The complaint id
+
+    Returns
+    -------
+    dict
+        A dict with the price
+
+    """
+    with engine.begin() as conn:
+        query = delete(PriceTable).where(
+            PriceTable.complaint_id == complaint_id
+        )
+        _ = conn.execute(query)
+        return {"complaint_id": complaint_id, "status": "deleted"}
