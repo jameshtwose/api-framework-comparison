@@ -7,7 +7,7 @@ A comparison of an assortment of popular API frameworks in various languages. Th
 
 ## Commands
 - `docker compose up -d` - Starts the postgres database and the api
-- `psql -h localhost -p 5432 -U postgres -d postgres` - Connects to the postgres database
+- exec into the postgres container and run `psql -U postgres` to connect to the database
 
 ## Comparisons
 - speed

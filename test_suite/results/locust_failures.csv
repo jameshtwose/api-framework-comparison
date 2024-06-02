@@ -1,2 +1,20 @@
 Method,Name,Error,Occurrences
-GET,/fail,HTTPError('404 Client Error: Not Found for url: /fail'),168
+GET,/complaints?limit=[limit],RemoteDisconnected('Remote end closed connection without response'),6
+GET,/complaints?limit=10,RemoteDisconnected('Remote end closed connection without response'),1
+GET,/complaints/date_received/2023-12-09,RemoteDisconnected('Remote end closed connection without response'),1
+GET,/prices?limit=10,RemoteDisconnected('Remote end closed connection without response'),1
+GET,/,RemoteDisconnected('Remote end closed connection without response'),3
+GET,/complaints/date_received/2023-12-09,"ConnectionResetError(54, 'Connection reset by peer')",2682
+GET,/complaints/7968391,RemoteDisconnected('Remote end closed connection without response'),1
+GET,/complaints?limit=[limit],"ConnectionResetError(54, 'Connection reset by peer')",10535
+GET,/prices/7968391,"ConnectionResetError(54, 'Connection reset by peer')",2752
+GET,/complaints/7968391/price,"ConnectionResetError(54, 'Connection reset by peer')",2661
+DELETE,/prices/1,RemoteDisconnected('Remote end closed connection without response'),1
+POST,/prices?complaint_id=1&price=100,"ConnectionResetError(54, 'Connection reset by peer')",2741
+GET,/,"ConnectionResetError(54, 'Connection reset by peer')",2697
+GET,/complaints/7968391,"ConnectionResetError(54, 'Connection reset by peer')",2776
+GET,/fail,"ConnectionResetError(54, 'Connection reset by peer')",2706
+GET,/complaints?limit=10,"ConnectionResetError(54, 'Connection reset by peer')",2793
+GET,/prices?limit=10,"ConnectionResetError(54, 'Connection reset by peer')",2795
+GET,/fail,RemoteDisconnected('Remote end closed connection without response'),1
+DELETE,/prices/1,"ConnectionResetError(54, 'Connection reset by peer')",2706
